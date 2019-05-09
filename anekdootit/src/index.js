@@ -3,11 +3,30 @@ import ReactDOM from 'react-dom'
 
 const App = (props) => {
     const [selected, setSelected] = useState(0)
-    const randomNumber = Math.floor((Math.random() * 6));
+    const [points, setPoints] = useState([
+        0, 0, 0, 0, 0, 0
+    ])
+    const [topPoints, setTopPoints] = useState(0)
+
+    const handleClick = () => {
+        points[selected] += 1
+        setPoints(points)
+        const biggestNumber = Math.max(...points)
+        setTopPoints(points.indexOf(biggestNumber))
+    }
+
+
+    console.log(points)
+    console.log(selected)
 
     return (
         <div>
-            {props.anecdotes[selected]}
+            <h1>Anecdote of the day</h1>
+            <div>{props.anecdotes[selected]}</div>
+            <button onClick={() => handleClick()}>vote</button>
+            <button onClick={() => setSelected(Math.floor(Math.random() * 6))}>next anecdote</button>
+            <h1>Anecdote with the most votes</h1>
+            <div>{anecdotes[topPoints]}</div>
         </div>
     )
 }
